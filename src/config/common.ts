@@ -4,6 +4,10 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default {
+  path: {
+    static: __dirname + '/../../../static',
+    uploads: __dirname + '/../../../static/uploads',
+  },
   host: process.env.HOST,
   port: process.env.PORT,
 };

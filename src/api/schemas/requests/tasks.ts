@@ -14,4 +14,9 @@ export const rules: IRouteValidationSchema = {
       task: payloadTaskSchema,
     }),
   },
+  upload: {
+    payload: Joi.object({
+      file: Joi.any(),
+    }),
+  },
 };

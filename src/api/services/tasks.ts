@@ -1,5 +1,5 @@
 import {Collection, QuerySelector, SortOptionObject} from 'mongodb';
-import {IRestAPI} from '.';
+import {AsDocument, IRestAPI} from '.';
 import {IContext} from '../../main';
 
 export interface ITask {
@@ -26,10 +26,10 @@ export default class TaskService implements IRestAPI<ITask> {
   async count(query: QuerySelector<ITask>): Promise<number> {
     return this.client.countDocuments(query);
   }
-  async create(data: ITask): Promise<void> {
-    this.client.insertOne(data);
+  async create(data: ITask): Promise<AsDocument<ITask>['_id']> {
+    return (await this.client.insertOne(data)).insertedId;
   }
-  async createMany(data: ITask[]): Promise<void> {
-    this.client.insertMany(data);
+  async createMany(data: ITask[]): Promise<AsDocument<ITask>['_id']> {
+    return (await this.client.insertMany(data)).insertedIds;
   }
 }

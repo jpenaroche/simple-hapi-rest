@@ -9,4 +9,6 @@ export interface IRestAPI<T> {
   createMany?: (data: T[]) => Promise<void>;
 }
 
+export type AsDocument<T> = {_id: any} & T;
+
 export {TaskService, ITask};

@@ -1,0 +1,1 @@
+export {onLocalFS} from './stream';

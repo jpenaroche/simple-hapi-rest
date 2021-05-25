@@ -1,7 +1,9 @@
+require('module-alias/register');
+
 import {Db} from 'mongodb';
 import initDatabase, {IMongoParams} from './database';
 import {run} from './server';
-import config from './api/config';
+import config from '@config';
 
 // Add more connections (Redis, RabbitMQ, etc...)
 export type IContext = {
@@ -17,14 +19,14 @@ const bootstrap = async (): Promise<IContext> => {
   };
 };
 
-bootstrap().then(run);
+const handleErrors = (ctx: IContext) => (error: Error) => {
+  console.error(error);
+  // eslint-disable-next-line no-process-exit
+  process.exit(1);
+};
 
-process.on('unhandledRejection', err => {
-  console.error(err);
-  throw err;
-});
-
-process.on('uncaughtException', err => {
-  console.error(err);
-  throw err;
+bootstrap().then((ctx: IContext) => {
+  process.on('unhandledRejection', handleErrors(ctx));
+  process.on('uncaughtException', handleErrors(ctx));
+  run(ctx);
 });

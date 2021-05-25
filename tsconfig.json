@@ -1,14 +1,28 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@build":[
+        "build/*"
+      ],
+      "@config":[
+        "config"
+      ],
+      "@lib":[
+        "lib"
+      ]
+    },
+    "esModuleInterop": true,
     "alwaysStrict": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build",
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*.ts",
     "test/**/*.ts"
-, "src/main.ts"  ]
+  ]
 }
