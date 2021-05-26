@@ -2,9 +2,9 @@ FROM alpine:3.12
 
 WORKDIR /home/hapi-app
 
-RUN apk add nodejs npm curl && apk cache clean
+RUN apk add nodejs npm curl --no-cache
 
-ENV port=3000 \ 
+ARG port=3000 \ 
     host=0.0.0.0 \ 
     db_name= \ 
     user= \
@@ -14,6 +14,8 @@ ENV port=3000 \
     auth0-domain= \ 
     auth0-client-id= \
     auth0-secret=
+
+ENV env=production
 
 COPY  . . 
 
