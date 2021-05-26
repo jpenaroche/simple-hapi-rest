@@ -72,7 +72,7 @@ const registerPlugins = async (server: Server): Promise<void> => {
   });
 };
 
-export const run = async (ctx: IContext): Promise<void> => {
+export const init = async (): Promise<Server> => {
   const server = new Server({
     port: config.common.port,
     host: config.common.host,
@@ -81,6 +81,12 @@ export const run = async (ctx: IContext): Promise<void> => {
       isCaseSensitive: true,
     },
   });
+  await server.initialize();
+  return server;
+};
+
+export const run = async (ctx: IContext): Promise<void> => {
+  const server = await init();
 
   await registerPlugins(server);
 

@@ -1,5 +1,8 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
+  "types":[
+    "node"
+  ],
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
@@ -23,6 +26,5 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
   ]
 }
