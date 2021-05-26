@@ -9,13 +9,18 @@ ENV port=3000 \
     db_name= \ 
     user= \
     password= \ 
-    env=production
+    env=production \
+    hapi-password= \
+    auth0-domain= \ 
+    auth0-client-id= \
+    auth0-secret=
 
 COPY  . . 
 
 RUN npm i -y && npm cache clean --force && npm run compile
 
-RUN printf "PORT=${port}\nHOST=${host}\nDB_NAME=${db_name}\nDB_USER=${user}\nDB_PASSWORD=${password}" > .env
+RUN printf "PORT=${port}\nHOST=${host}\nDB_NAME=${db_name}\nDB_USER=${user}\nDB_PASSWORD=${password}\n" > .env
+RUN printf "STRATEGY_PASSWORD=${hapi-password}\nAUTH0_DOMAIN=${auth0-domain}\nAUTH0_CLIENTID=${auth0-client-id}\nAUTH0_SECRET=${auth0-secret}" >> .env
 
 EXPOSE ${port}/tcp
 
